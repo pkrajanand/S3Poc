@@ -30,14 +30,13 @@ class FileManager {
         key: String,
         sourceFileLocation: String
     ) {
-
         val putObject = s3Client.putObject(
             bucketName,
             key,
             File(sourceFileLocation)
-        )
-
-
+        ).also {
+            println("Uploading file ${sourceFileLocation} to S3")
+        }
     }
 
     fun download(
