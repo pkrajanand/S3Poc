@@ -24,6 +24,22 @@ class FileManager {
             )
         }
 
+    fun upload(
+        s3Client: AmazonS3Client,
+        bucketName: String,
+        key: String,
+        sourceFileLocation: String
+    ) {
+
+        val putObject = s3Client.putObject(
+            bucketName,
+            key,
+            File(sourceFileLocation)
+        )
+
+
+    }
+
     fun download(
         s3Client: AmazonS3Client,
         bucketName: String,
