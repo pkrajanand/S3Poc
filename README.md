@@ -13,3 +13,7 @@
        Downloading file FB_IMG_1456275709103_2.jpg from S3
    ``` 
 8. Notice that the file is downloaded at the location "~/Downloads"
+
+
+## References
+Depended on this article mainly - https://medium.com/@shrikantjagtap99/beginner-tutorial-for-amazon-s3-service-with-kotlin-7bd2ef953d99 
