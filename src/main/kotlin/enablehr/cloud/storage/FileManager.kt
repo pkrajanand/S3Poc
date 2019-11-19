@@ -6,8 +6,8 @@ import com.amazonaws.services.s3.S3ClientOptions
 import com.amazonaws.services.s3.model.GetObjectRequest
 import java.io.File
 
-class StorageManager {
-    fun init(
+class FileManager {
+    fun getClient(
         endpoint: String,
         accessKey: String,
         secretKey: String
