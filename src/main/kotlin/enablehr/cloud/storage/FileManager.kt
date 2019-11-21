@@ -42,14 +42,13 @@ class FileManager {
     fun download(
         s3Client: AmazonS3Client,
         bucketName: String,
-        targetFilename: String,
-        pathToDownload: String
+        s3ObjectKey: String
     ) =
         s3Client
-            .getObject(GetObjectRequest(bucketName, targetFilename))
+            .getObject(GetObjectRequest(bucketName, s3ObjectKey))
             .objectContent
             .use { inStream ->
-                File("$pathToDownload/$targetFilename")
+                File("$s3ObjectKey")
                     .outputStream()
                     .buffered()
                     .use { outStream ->
@@ -58,6 +57,6 @@ class FileManager {
                             .copyTo(outStream)
                     }
             }.also {
-                println("Downloading file ${targetFilename} from S3")
+                println("Downloading file ${s3ObjectKey} from S3")
             }
 }

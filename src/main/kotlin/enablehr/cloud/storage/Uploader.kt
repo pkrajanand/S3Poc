@@ -2,8 +2,7 @@ package enablehr.cloud.storage
 
 private const val AWS_S3_ENDPOINT = "http://localhost:4572"
 private const val BUCKET_NAME = "enablehr-s3-poc-2"
-private const val FILE_NAME = "FB_IMG_1456275709103_2.jpg"
-private val SOURCE_FILE_LOCATION = System.getProperty("user.home") + "/Downloads" + "/FB_IMG_1456275709103_2.jpg"
+private val SOURCE_FILE_LOCATION = System.getProperty("user.home") + "/Downloads/MicrosoftTeams-image.png"
 
 fun main() {
 
@@ -20,7 +19,7 @@ fun main() {
     fileManager.upload(
         s3Client,
         BUCKET_NAME,
-        FILE_NAME,
+        SOURCE_FILE_LOCATION,
         SOURCE_FILE_LOCATION
     )
 
