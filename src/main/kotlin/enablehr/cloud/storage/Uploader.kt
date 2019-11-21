@@ -5,21 +5,15 @@ private const val BUCKET_NAME = "enablehr-s3-poc-2"
 private val SOURCE_FILE_LOCATION = System.getProperty("user.home") + "/Downloads/MicrosoftTeams-image.png"
 
 fun main() {
-
     val fileManager = FileManager()
-
-    val accessKey: String = System.getProperty("aws.access.key") ?: "XXXXX"
-    val secretKey: String = System.getProperty("aws.secret.key") ?: "XXXXX"
-
     val s3Client = fileManager.getClient(
         AWS_S3_ENDPOINT,
-        accessKey,
-        secretKey
+        System.getProperty("aws.access.key") ?: "XXXXX",
+        System.getProperty("aws.secret.key") ?: "XXXXX"
     )
     fileManager.upload(
         s3Client,
         BUCKET_NAME,
-        SOURCE_FILE_LOCATION,
         SOURCE_FILE_LOCATION
     )
 

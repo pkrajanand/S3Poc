@@ -33,12 +33,11 @@ class FileManager {
     fun upload(
         s3Client: AmazonS3,
         bucketName: String,
-        key: String,
         sourceFileLocation: String
     ) {
         val putObject = s3Client.putObject(
             bucketName,
-            key,
+            sourceFileLocation,
             File(sourceFileLocation)
         ).also {
             println("Uploading file ${sourceFileLocation} to S3")
