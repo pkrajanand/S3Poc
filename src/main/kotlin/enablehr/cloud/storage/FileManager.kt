@@ -1,8 +1,11 @@
 package enablehr.cloud.storage
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.S3ClientOptions
+import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.regions.Regions
+import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.GetObjectRequest
 import java.io.File
 
@@ -12,20 +15,23 @@ class FileManager {
         accessKey: String,
         secretKey: String
     ) =
-        AmazonS3Client(
-            BasicAWSCredentials(accessKey, secretKey)
-        ).apply {
-            setEndpoint(endpoint).apply {
-                println("S3 endpoint is ${endpoint}")
-            }
-            setS3ClientOptions(
-                S3ClientOptions.builder()
-                    .setPathStyleAccess(true).build()
-            )
+        AmazonS3ClientBuilder
+            .standard()
+            .withEndpointConfiguration(AwsClientBuilder.EndpointConfiguration(endpoint, Regions.DEFAULT_REGION.toString()))
+            .withPathStyleAccessEnabled(true)
+            .withCredentials((
+                    AWSStaticCredentialsProvider(
+                        BasicAWSCredentials(
+                            accessKey,
+                            secretKey
+                        ))))
+            .build()
+        .apply {
+            println("S3 endpoint is ${endpoint}")
         }
 
     fun upload(
-        s3Client: AmazonS3Client,
+        s3Client: AmazonS3,
         bucketName: String,
         key: String,
         sourceFileLocation: String
@@ -40,7 +46,7 @@ class FileManager {
     }
 
     fun download(
-        s3Client: AmazonS3Client,
+        s3Client: AmazonS3,
         bucketName: String,
         s3ObjectKey: String
     ) =
